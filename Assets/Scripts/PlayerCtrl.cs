@@ -7,7 +7,7 @@ public class PlayerCtrl : MonoBehaviour
     public float walkMoveSpd = 2.0f;
     public float runMoveSpd = 3.5f;
     public float rotateMoveSpd = 100.0f;
-    public float rotateBodySpd = 2.0f;
+    public float rotateBodySpd = 100.0f;
     public float moveChageSpd = 0.1f;
     private Vector3 vecNowVelocity = Vector3.zero;
     private Vector3 vecMoveDirection = Vector3.zero;
@@ -17,6 +17,7 @@ public class PlayerCtrl : MonoBehaviour
     private float verticalSpd = 5f;
     private bool stopMove = false;
     private Rigidbody myRigid;
+    float power = 100f;
 
     [Header("애니메이션 속성")]
     public AnimationClip animationClipIdle = null;
@@ -42,6 +43,7 @@ public class PlayerCtrl : MonoBehaviour
 
     void Start()
     {
+        myRigid = GetComponent<Rigidbody>();
         controllerCharacter = GetComponent<CharacterController>();
         animationPlayer = GetComponent<Animation>();
         animationPlayer.playAutomatically = false;
@@ -106,7 +108,6 @@ public class PlayerCtrl : MonoBehaviour
         }
         Vector3 vecGravity = new Vector3(0f, verticalSpd, 0f);
 
-
         Vector3 moveAmount = (vecMoveDirection * spd * Time.deltaTime) + vecGravity;
         collisionFlagsCharacter = controllerCharacter.Move(moveAmount);
     }
@@ -132,13 +133,12 @@ public class PlayerCtrl : MonoBehaviour
         if (controllerCharacter != null && controllerCharacter.velocity != Vector3.zero)
         {
             var labelStyle = new GUIStyle();
-            labelStyle.fontSize = 50;
+            labelStyle.fontSize = 30;
             labelStyle.normal.textColor = Color.white;
             float _getVelocitySpd = getNowVelocityVal();
             GUILayout.Label("현재속도 : " + _getVelocitySpd.ToString(), labelStyle);
             GUILayout.Label("현재벡터 : " + controllerCharacter.velocity.ToString(), labelStyle);
             GUILayout.Label("현재백터 크기 속도 : " + vecNowVelocity.magnitude.ToString(), labelStyle);
-
         }
     }
 
@@ -149,10 +149,8 @@ public class PlayerCtrl : MonoBehaviour
             Vector3 newForward = controllerCharacter.velocity;
             newForward.y = 0.0f;
             transform.forward = Vector3.Lerp(transform.forward, newForward, rotateBodySpd * Time.deltaTime);
-
         }
     }
-
 
     void playAnimationByClip(AnimationClip clip)
     {

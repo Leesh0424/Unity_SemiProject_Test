@@ -5,15 +5,7 @@ using DG.Tweening;
 
 public class UIMove : MonoBehaviour
 {
-    Vector3 direction;
+    Tweener Tween_pause;
 
-    void Update()
-    {
-        
-    }
-
-    public void Move()
-    {
-        
-    }
+    
 }
