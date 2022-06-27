@@ -12,7 +12,7 @@ public class NewBehaviourScript : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         OpenParachute();
         if (Input.GetKey(KeyCode.LeftArrow) == true)
@@ -38,6 +38,6 @@ public class NewBehaviourScript : MonoBehaviour
 
     void OpenParachute()
     {
-        rb.drag = 0;
+        rb.drag = 3f;
     }
 }
